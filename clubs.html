@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SIR C.R. REDDY COLLEGE – Clubs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="crrengglogo.png">
+
+<style>
+:root{
+  --bg1:#0b132b;
+  --bg2:#1c2541;
+  --gold:#d4af37;
+  --gold-light:#ffdf8a;
+  --text:#ffffff;
+  --muted:#b9c0d4;
+  --glass:rgba(255,255,255,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:"Segoe UI",sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ===== BACKGROUND ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 30%, rgba(212,175,55,.08), transparent 45%),
+    radial-gradient(circle at 85% 70%, rgba(255,215,128,.06), transparent 50%);
+  animation:bgFloat 18s linear infinite;
+  z-index:0;
+  pointer-events:none;
+}
+
+@keyframes bgFloat{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-30px)}
+  100%{transform:translateY(0)}
+}
+
+/* ===== HEADER ===== */
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(8,12,35,.9);
+  backdrop-filter:blur(14px);
+  border-bottom:2px solid var(--gold);
+}
+
+.header-container{
+  max-width:1400px;
+  margin:auto;
+  padding:25px 35px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.logo-section{
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+
+.logo-section img{
+  width:65px;
+  filter:drop-shadow(0 0 8px var(--gold));
+}
+
+.college-info h1{
+  color:var(--gold);
+  font-size:26px;
+}
+
+.college-info p{
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:2px;
+}
+
+nav{
+  display:flex;
+  gap:28px;
+}
+
+nav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  position:relative;
+}
+
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+  transition:.3s;
+}
+
+nav a:hover{
+  color:var(--gold);
+}
+nav a:hover::after{width:100%}
+
+/* ===== TITLE ===== */
+.page-title{
+  text-align:center;
+  padding:70px 20px 40px;
+  z-index:1;
+  position:relative;
+}
+
+.page-title h2{
+  font-size:44px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.page-title p{
+  margin-top:12px;
+  color:var(--muted);
+}
+
+/* ===== CLUB GRID ===== */
+.club-container{
+  max-width:1400px;
+  margin:auto;
+  padding:40px 35px 90px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
+  position:relative;
+  z-index:1;
+}
+
+.club-card{
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(212,175,55,.25);
+  border-radius:22px;
+  padding:32px;
+  position:relative;
+  transition:.4s;
+}
+
+.club-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(212,175,55,.18),transparent);
+  opacity:0;
+  transition:.4s;
+  pointer-events:none;   /* 🔥 FIX */
+}
+
+.club-card:hover::before{opacity:1}
+
+.club-card:hover{
+  transform:translateY(-12px);
+  box-shadow:0 25px 55px rgba(0,0,0,.55);
+}
+
+.club-icon{
+  font-size:52px;
+  margin-bottom:16px;
+}
+
+.club-card h3{
+  color:var(--gold);
+  margin-bottom:10px;
+}
+
+.club-card p{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.dept{
+  display:inline-block;
+  padding:6px 16px;
+  border-radius:20px;
+  background:rgba(212,175,55,.18);
+  color:var(--gold-light);
+  font-size:12px;
+  margin-bottom:20px;
+}
+
+/* ===== BUTTON ===== */
+.club-card button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:#111;
+  position:relative;
+  z-index:5;   /* 🔥 FIX */
+}
+
+.club-card button:hover{
+  box-shadow:0 0 28px rgba(212,175,55,.8);
+}
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  color:var(--muted);
+  font-size:18px;
+  padding:90px 0;
+}
+
+footer{
+  text-align:center;
+  padding:28px;
+  color:var(--muted);
+  border-top:1px solid rgba(212,175,55,.2);
+  background:rgba(0,0,0,.3);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="header-container">
+  <div class="logo-section">
+    <img src="crrengglogo.png">
+    <div class="college-info">
+      <h1>SIR C.R. REDDY COLLEGE OF ENGINEERING</h1>
+      <p>Department of Computer Science and Engineering</p>
+    </div>
+  </div>
+
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="index.html">Fests</a>
+    <a href="clubs.html">Clubs</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="clips.html">Clips</a>
+  </nav>
+</div>
+</header>
+
+<section class="page-title">
+<h2>🏫 COLLEGE CLUBS</h2>
+<p>Explore student communities & creative teams</p>
+</section>
+
+<section class="club-container" id="clubList">
+<div class="empty">Loading clubs...</div>
+</section>
+
+<footer>© 2025 Sir C.R. Reddy College of Engineering</footer>
+
+<script>
+const API = "http://localhost:3000";
+
+fetch(API + "/api/clubs")
+.then(res => res.json())
+.then(clubs => {
+  const list = document.getElementById("clubList");
+  list.innerHTML = "";
+
+  if (!clubs.length) {
+    list.innerHTML = `<div class="empty">No Clubs Available</div>`;
+    return;
+  }
+
+  clubs.forEach(c => {
+    list.innerHTML += `
+      <div class="club-card">
+        <div class="club-icon">🎯</div>
+        <h3>${c.club_name}</h3>
+        <p>${c.description ? c.description.slice(0,120) : "Student Club"}...</p>
+        <div class="dept">${c.department}</div>
+        <button onclick="location.href='club.html?club_id=${c.id}'">
+          View Club
+        </button>
+      </div>
+    `;
+  });
+})
+.catch(()=>{
+  document.getElementById("clubList").innerHTML =
+    `<div class="empty">Failed to load clubs</div>`;
+});
+</script>
+
+</body>
+</html>

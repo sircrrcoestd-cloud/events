@@ -61,8 +61,6 @@ db.getConnection((err, connection) => {
   }
 });
 
-
-
 // ======================================================
 // ====================== FEST APIs ======================
 // ======================================================
@@ -371,7 +369,7 @@ app.post("/api/delete-clips", async (req, res) => {
 // ====================== CLUB APIs ======================
 // ======================================================
 
-// ➕ CREATE CLUB
+// ➕ pool CLUB
 app.post("/api/clubs", async (req, res) => {
   const {
     club_name,
@@ -414,7 +412,7 @@ app.post("/api/clubs", async (req, res) => {
       );
     }
 
-    res.json({ message: "Club created successfully ✅" });
+    res.json({ message: "Club poold successfully ✅" });
 
   } catch (err) {
     console.error(err);
@@ -530,5 +528,5 @@ app.delete("/api/clubs/:id", async (req, res) => {
 
 // ====================== SERVER ======================
 app.listen(3000, () => {
-  console.log("🚀 Server running on https://events.sircrrcoestd.in/");
+  console.log("🚀 Server running on http://localhost:3000");
 });

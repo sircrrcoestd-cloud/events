@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIR C.R. REDDY COLLEGE - Admin Panel</title>
+  <link rel="icon" href="crrengglogo.png" type="image/png">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #1a1a2e;
+      --secondary-color: #16213e;
+      --accent-gold: #d4af37;
+      --accent-orange: #ff6b35;
+      --accent-cyan: #00d4ff;
+      --accent-green: #00e676;
+      --accent-red: #ff5252;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --card-bg: #0f3460;
+      --border-color: #d4af37;
+      --hover-shadow: 0 10px 35px rgba(212, 175, 55, 0.3);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: var(--text-primary);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Animated Background Icons */
+    .background-icons {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-icon {
+      position: absolute;
+      font-size: 40px;
+      opacity: 0.08;
+      animation: float 20s infinite linear;
+    }
+
+    .floating-icon:nth-child(1) { left: 5%; top: 10%; animation-delay: 0s; animation-duration: 25s; }
+    .floating-icon:nth-child(2) { left: 15%; top: 20%; animation-delay: 2s; animation-duration: 30s; }
+    .floating-icon:nth-child(3) { left: 80%; top: 15%; animation-delay: 1s; animation-duration: 28s; }
+    .floating-icon:nth-child(4) { left: 85%; top: 35%; animation-delay: 3s; animation-duration: 26s; }
+    .floating-icon:nth-child(5) { left: 10%; top: 60%; animation-delay: 1.5s; animation-duration: 29s; }
+    .floating-icon:nth-child(6) { left: 90%; top: 70%; animation-delay: 2.5s; animation-duration: 27s; }
+    .floating-icon:nth-child(7) { left: 20%; top: 80%; animation-delay: 0.5s; animation-duration: 31s; }
+    .floating-icon:nth-child(8) { left: 75%; top: 50%; animation-delay: 3.5s; animation-duration: 26s; }
+
+    @keyframes float {
+      0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      50% { transform: translateY(-30px) translateX(20px) rotate(180deg); }
+      100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--accent-gold);
+      padding: 30px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .logo-section img {
+      width: 70px;
+      height: 70px;
+      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .college-info h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .college-info p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      letter-spacing: 2px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+      transition: var(--transition);
+      text-transform: uppercase;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange));
+      transition: var(--transition);
+    }
+
+    nav a:hover {
+      color: var(--accent-gold);
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Page Title */
+    .page-title {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 40px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-title h2 {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 2px;
+    }
+
+    /* Main Container */
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .admin-left {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .admin-right {
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.6) 0%, rgba(26, 26, 46, 0.6) 100%);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--accent-gold);
+      border-radius: 16px;
+      padding: 30px;
+      height: fit-content;
+      position: sticky;
+      top: 120px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Section */
+    .admin-section {
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.6) 0%, rgba(26, 26, 46, 0.6) 100%);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--accent-gold);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-section h3 {
+      color: var(--accent-gold);
+      font-size: 24px;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    .admin-right h3 {
+      margin-top: 0;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+    }
+
+    /* Form Styles */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea, select {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 8px;
+      padding: 12px 15px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(176, 176, 176, 0.6);
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background: rgba(212, 175, 55, 0.05);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Buttons */
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+      color: var(--primary-color);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(255, 107, 53, 0.5);
+      letter-spacing: 2px;
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button.danger {
+      background: linear-gradient(135deg, #ff5252, #ff1744);
+      box-shadow: 0 4px 15px rgba(255, 82, 82, 0.3);
+    }
+
+    button.danger:hover {
+      box-shadow: 0 6px 25px rgba(255, 82, 82, 0.5);
+    }
+
+    button.hidden {
+      display: none;
+    }
+
+    /* Card Styles */
+    .admin-card {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 12px;
+      transition: var(--transition);
+    }
+
+    .admin-card:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--accent-gold);
+    }
+
+    .admin-card b {
+      color: var(--accent-gold);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .admin-card small {
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .admin-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 12px;
+    }
+
+    /* List Styles */
+    .admin-right h3 {
+      color: var(--accent-gold);
+      font-size: 20px;
+    }
+
+    .admin-right > div {
+      margin-bottom: 30px;
+    }
+
+    /* Modal/Popup Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+
+    .modal-overlay.active {
+      display: block;
+    }
+
+    .modal-overlay h2 {
+      color: var(--accent-gold);
+      font-size: 28px;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    .modal-overlay select {
+      margin-bottom: 20px;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .modal-grid label {
+      position: relative;
+      cursor: pointer;
+      display: block;
+    }
+
+    .modal-grid input[type="checkbox"] {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .modal-grid img, .modal-grid video {
+      width: 100%;
+      border-radius: 8px;
+      border: 2px solid var(--accent-gold);
+      transition: var(--transition);
+      display: block;
+    }
+
+    .modal-grid input[type="checkbox"]:checked ~ img,
+    .modal-grid input[type="checkbox"]:checked ~ video {
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+    }
+
+    .modal-overlay button {
+      margin-top: 20px;
+      margin-right: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .admin-container {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-right {
+        position: relative;
+        top: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 20px;
+        flex-direction: column;
+      }
+
+      .logo-section {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+      }
+
+      .college-info h1 {
+        font-size: 24px;
+      }
+
+      nav {
+        gap: 15px;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .page-title {
+        padding: 30px 20px 15px;
+      }
+
+      .page-title h2 {
+        font-size: 32px;
+      }
+
+      .admin-container {
+        padding: 30px 20px;
+        gap: 30px;
+      }
+
+      .admin-section {
+        padding: 20px;
+      }
+
+      .modal-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title h2 {
+        font-size: 24px;
+      }
+
+      .admin-container {
+        padding: 20px 15px;
+      }
+
+      .admin-section {
+        padding: 15px;
+      }
+
+      .modal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Accessibility */
+    *:focus-visible {
+      outline: 2px solid var(--accent-gold);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background Icons -->
+  <div class="background-icons">
+    <div class="floating-icon">⚙️</div>
+    <div class="floating-icon">🛠️</div>
+    <div class="floating-icon">📊</div>
+    <div class="floating-icon">✨</div>
+    <div class="floating-icon">💻</div>
+    <div class="floating-icon">🔧</div>
+    <div class="floating-icon">📈</div>
+    <div class="floating-icon">🎯</div>
+  </div>
+
+  <header>
+    <div class="header-container">
+      <div class="logo-section">
+        <img src="crrengglogo.png" alt="CRR College Logo">
+        <div class="college-info">
+          <h1>SIR C.R. REDDY COLLEGE OF ENGINEERING</h1>
+          <p>Department of Computer Science and Engineering</p>
+        </div>
+      </div>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <a href="home.html" aria-label="Home">Home</a>
+        <a href="index.html" aria-label="Events and Fests">Fests</a>
+        <a href="clubs.html" aria-label="Student Clubs">Clubs</a>
+        <a href="gallery.html" aria-label="Photo Gallery">Gallery</a>
+        <a href="clips.html" aria-label="Video Clips">Clips</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-title">
+    <h2>⚙️ ADMIN PANEL</h2>
+  </div>
+
+  <div class="admin-container">
+    <!-- LEFT SECTION -->
+    <div class="admin-left">
+      <!-- FEST SECTION -->
+      <div class="admin-section">
+        <h3>🎪 Manage Fests</h3>
+        <form id="festForm">
+          <input type="hidden" id="festId">
+          <input name="fest_name" placeholder="Fest Name" required>
+          <select name="department" required>
+            <option value="">Select Department</option>
+            <option>CSE</option>
+            <option>IT</option>
+            <option>EEE</option>
+            <option>ECE</option>
+            <option>MECH</option>
+            <option>CIVIL</option>
+            <option>MBA</option>
+            <option>FED</option>
+          </select>
+          <button id="addFestBtn" type="submit">Add Fest</button>
+          <button id="updateFestBtn" type="button" class="hidden">Update Fest</button>
+        </form>
+      </div>
+
+      <!-- EVENT SECTION -->
+      <div class="admin-section">
+        <h3>🎭 Manage Events</h3>
+        <form id="eventForm">
+          <input type="hidden" id="eventId">
+          <select name="fest_id" id="festSelect" required>
+            <option value="">Select Fest</option>
+          </select>
+          <input name="event_name" placeholder="Event Name" required>
+          <textarea name="event_description" placeholder="Event Description" required></textarea>
+          <textarea name="rules" placeholder="Rules & Guidelines" required></textarea>
+          <input name="max_team_size" type="number" placeholder="Max Team Size" required>
+          <input name="whatsapp_link" placeholder="WhatsApp Group Link" required>
+          <input name="register_form_link" placeholder="Registration Form Link (Google Form)" required>
+          <input name="fee_amount" type="number" placeholder="Fee Amount (₹)" required>
+          <input name="prize_amount" placeholder="Prize Details" required>
+          <input name="venue" placeholder="Event Venue" required>
+          <input name="event_date" type="date" required>
+          <input name="event_time" type="time" required>
+          <button id="addEventBtn" type="submit">Add Event</button>
+          <button id="updateEventBtn" type="button" class="hidden">Update Event</button>
+        </form>
+      </div>
+
+      <!-- GALLERY SECTION -->
+      <div class="admin-section">
+        <h3>📸 Gallery Images</h3>
+        <form id="galleryForm" enctype="multipart/form-data">
+          <select name="fest_id" id="galleryFest" required>
+            <option value="">Select Fest</option>
+          </select>
+          <select name="event_id" id="galleryEvent" required>
+            <option value="">Select Event</option>
+          </select>
+          <input name="description" placeholder="Image Description">
+          <input name="year" placeholder="Year (2025)">
+          <input type="file" name="images" accept="image/*" multiple required>
+          <button type="submit">Upload Gallery Images</button>
+          <button type="button" onclick="openDeleteGallery()">Delete Gallery Images</button>
+        </form>
+      </div>
+
+      <!-- CLIPS SECTION -->
+      <div class="admin-section">
+        <h3>🎬 Clips Videos</h3>
+        <form id="clipsForm" enctype="multipart/form-data">
+          <select id="clipsFest" name="fest_id" required>
+            <option value="">Select Fest</option>
+          </select>
+          <select id="clipsEvent" name="event_id" required>
+            <option value="">Select Event</option>
+          </select>
+          <input name="year" placeholder="Year (2025)">
+          <input type="file" name="videos" accept="video/*" multiple required>
+          <button type="submit">Upload Clips</button>
+          <button type="button" class="danger" onclick="openDeleteClips()">Delete Clips</button>
+        </form>
+      </div>
+
+
+<!-- CLUBS SECTION -->
+<div class="admin-section">
+  <h3>🏫 Manage Clubs</h3>
+
+  <form id="clubForm">
+    <input type="hidden" id="clubId">
+
+    <input name="club_name" placeholder="Club Name" required>
+
+    <select name="department" required>
+      <option value="">Select Department</option>
+      <option>CSE</option>
+      <option>IT</option>
+      <option>EEE</option>
+      <option>ECE</option>
+      <option>MECH</option>
+      <option>CIVIL</option>
+      <option>MBA</option>
+    </select>
+
+    <textarea name="description" placeholder="Club Description" required></textarea>
+    <textarea name="rules" placeholder="Rules & Guidelines" required></textarea>
+
+    <input name="whatsapp_link" placeholder="WhatsApp Group Link" required>
+
+    <h4 style="color:#d4af37;margin-top:10px">Club Coordinators</h4>
+
+    <div id="coordinatorContainer"></div>
+
+    <button type="button" onclick="addCoordinator()">➕ Add Coordinator</button>
+
+    <button id="addClubBtn" type="submit">Create Club</button>
+    <button id="updateClubBtn" type="button" class="hidden">Update Club</button>
+  </form>
+</div>
+
+    
+    </div>
+
+
+   
+
+
+    <!-- RIGHT SECTION -->
+    <div class="admin-right">
+      <h3>📋 Available Fests</h3>
+      <div id="festList"></div>
+      <div id="eventList"></div>
+    
+      <h3>🏫 Available Clubs</h3>
+<div id="clubList"></div>
+
+    </div>
+  </div>
+
+  <!-- Delete Gallery Modal -->
+  <div id="deleteGalleryPopup" class="modal-overlay">
+    <h2>🗑️ Delete Gallery Images</h2>
+    <select id="deleteFest"></select>
+    <select id="deleteEvent"></select>
+    <div id="deleteImageGrid" class="modal-grid"></div>
+    <button onclick="deleteSelectedImages()" class="danger">Delete Selected Images</button>
+    <button onclick="closeDeleteGallery()">Close</button>
+  </div>
+
+  <!-- Delete Clips Modal -->
+  <div id="deleteClipsPopup" class="modal-overlay">
+    <h2>🗑️ Delete Clips Videos</h2>
+    <select id="deleteClipsFest" onchange="onDeleteClipsFestChange(this.value)"></select>
+    <select id="deleteClipsEvent" onchange="onDeleteClipsEventChange(this.value)"></select>
+    <div id="deleteClipsGrid" class="modal-grid"></div>
+    <button onclick="deleteSelectedClips()" class="danger">Delete Selected Videos</button>
+    <button onclick="closeDeleteClips()">Close</button>
+  </div>
+
+<script>
+const API = "http://localhost:3000";
+
+/* ================= DOM ELEMENTS ================= */
+const festForm = document.getElementById("festForm");
+const eventForm = document.getElementById("eventForm");
+const galleryForm = document.getElementById("galleryForm");
+const clipsForm = document.getElementById("clipsForm");
+
+const festList = document.getElementById("festList");
+const eventList = document.getElementById("eventList");
+
+const festSelect = document.getElementById("festSelect");
+const galleryFest = document.getElementById("galleryFest");
+const galleryEvent = document.getElementById("galleryEvent");
+const clipsFest = document.getElementById("clipsFest");
+const clipsEvent = document.getElementById("clipsEvent");
+
+const addFestBtn = document.getElementById("addFestBtn");
+const updateFestBtn = document.getElementById("updateFestBtn");
+const addEventBtn = document.getElementById("addEventBtn");
+const updateEventBtn = document.getElementById("updateEventBtn");
+const eventIdInput = document.getElementById("eventId");
+
+/* Delete Modals */
+const deleteGalleryPopup = document.getElementById("deleteGalleryPopup");
+const deleteClipsPopup = document.getElementById("deleteClipsPopup");
+const deleteImageGrid = document.getElementById("deleteImageGrid");
+const deleteClipsGrid = document.getElementById("deleteClipsGrid");
+const deleteFest = document.getElementById("deleteFest");
+const deleteEvent = document.getElementById("deleteEvent");
+const deleteClipsFest = document.getElementById("deleteClipsFest");
+const deleteClipsEvent = document.getElementById("deleteClipsEvent");
+
+let selectedFestId = null;
+let selectedImages = [];
+let selectedClipIds = [];
+
+/* ================= HELPER ================= */
+async function loadEventsForDropdown(festId, targetSelect) {
+  if (!festId) {
+    targetSelect.innerHTML = `<option value="">Select Event</option>`;
+    return;
+  }
+
+  const events = await (await fetch(`${API}/api/events/${festId}`)).json();
+  targetSelect.innerHTML = `<option value="">Select Event</option>`;
+  events.forEach(e => {
+    targetSelect.innerHTML += `<option value="${e.id}">${e.event_name}</option>`;
+  });
+}
+
+/* ================= FEST SELECT ================= */
+festSelect.onchange = e => {
+  const festId = e.target.value;
+  if (!festId) {
+    selectedFestId = null;
+    eventList.innerHTML = "";
+    return;
+  }
+  selectedFestId = festId;
+  loadEvents(festId);
+};
+
+/* ================= DROPDOWNS ================= */
+galleryFest.onchange = e => loadEventsForDropdown(e.target.value, galleryEvent);
+clipsFest.onchange = e => loadEventsForDropdown(e.target.value, clipsEvent);
+deleteFest.onchange = e => loadEventsForDropdown(e.target.value, deleteEvent);
+deleteClipsFest.onchange = e => loadEventsForDropdown(e.target.value, deleteClipsEvent);
+
+/* ================= LOAD FEST DROPDOWNS ================= */
+async function loadAllFestsForDropdowns() {
+  const fests = await (await fetch(`${API}/api/fests`)).json();
+
+  festSelect.innerHTML =
+  galleryFest.innerHTML =
+  clipsFest.innerHTML =
+  deleteFest.innerHTML =
+  deleteClipsFest.innerHTML = `<option value="">Select Fest</option>`;
+
+  fests.forEach(f => {
+    const opt = `<option value="${f.id}">${f.fest_name}</option>`;
+    festSelect.innerHTML += opt;
+    galleryFest.innerHTML += opt;
+    clipsFest.innerHTML += opt;
+    deleteFest.innerHTML += opt;
+    deleteClipsFest.innerHTML += opt;
+  });
+}
+
+/* ================= LOAD FESTS ================= */
+async function loadFests() {
+  const fests = await (await fetch(`${API}/api/fests`)).json();
+  festList.innerHTML = "";
+
+  fests.forEach(f => {
+    if (selectedFestId && f.id !== Number(selectedFestId)) return;
+
+    festList.innerHTML += `
+      <div class="admin-card">
+        <b>${f.fest_name}</b>
+        <small>${f.department}</small><br>
+        <button onclick="editFest(${f.id}, '${f.fest_name}', '${f.department}')">Edit</button>
+        <button class="danger" onclick="deleteFestById(${f.id})">Delete</button>
+      </div>`;
+  });
+}
+
+loadAllFestsForDropdowns();
+loadFests();
+
+/* ================= FEST CRUD ================= */
+festForm.onsubmit = async e => {
+  e.preventDefault();
+
+  await fetch(`${API}/api/fests`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(Object.fromEntries(new FormData(festForm)))
+  });
+
+  festForm.reset();
+  loadAllFestsForDropdowns();
+  loadFests();
+};
+
+function editFest(id, name, dept) {
+  selectedFestId = id;
+  festForm.fest_name.value = name;
+  festForm.department.value = dept;
+
+  addFestBtn.classList.add("hidden");
+  updateFestBtn.classList.remove("hidden");
+
+  loadEvents(id);
+  loadFests();
+}
+
+updateFestBtn.onclick = async () => {
+  await fetch(`${API}/api/fests/${selectedFestId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(Object.fromEntries(new FormData(festForm)))
+  });
+
+  festForm.reset();
+  selectedFestId = null;
+  addFestBtn.classList.remove("hidden");
+  updateFestBtn.classList.add("hidden");
+  loadFests();
+};
+
+async function deleteFestById(id) {
+  if (!confirm("Delete this fest and all its events?")) return;
+  await fetch(`${API}/api/fests/${id}`, { method: "DELETE" });
+  selectedFestId = null;
+  loadFests();
+}
+
+/* ================= EVENTS ================= */
+async function loadEvents(festId) {
+  const events = await (await fetch(`${API}/api/events/${festId}`)).json();
+  eventList.innerHTML = "<h3>📅 Events</h3>";
+
+  events.forEach(e => {
+    eventList.innerHTML += `
+      <div class="admin-card">
+        <b>${e.event_name}</b>
+        <button onclick="editEvent(${e.id})">Edit</button>
+        <button class="danger" onclick="deleteEventById(${e.id})">Delete</button>
+      </div>`;
+  });
+}
+
+eventForm.onsubmit = async e => {
+  e.preventDefault();
+  const festId = festSelect.value;
+  if (!festId) return alert("Select Fest");
+
+  const data = Object.fromEntries(new FormData(eventForm));
+  data.fest_id = festId;
+
+  await fetch(`${API}/api/events`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  eventForm.reset();
+  loadEvents(festId);
+};
+
+async function editEvent(id) {
+  const events = await (await fetch(`${API}/api/events/${selectedFestId}`)).json();
+  const ev = events.find(e => e.id == id);
+
+  eventIdInput.value = ev.id;
+  Object.keys(ev).forEach(k => eventForm[k] && (eventForm[k].value = ev[k] ?? ""));
+
+  addEventBtn.classList.add("hidden");
+  updateEventBtn.classList.remove("hidden");
+}
+
+updateEventBtn.onclick = async () => {
+  await fetch(`${API}/api/events/${eventIdInput.value}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(Object.fromEntries(new FormData(eventForm)))
+  });
+
+  eventForm.reset();
+  addEventBtn.classList.remove("hidden");
+  updateEventBtn.classList.add("hidden");
+  loadEvents(selectedFestId);
+};
+
+async function deleteEventById(id) {
+  if (!confirm("Delete event?")) return;
+  await fetch(`${API}/api/events/${id}`, { method: "DELETE" });
+  loadEvents(selectedFestId);
+}
+
+/* ================= GALLERY ================= */
+galleryForm.onsubmit = async e => {
+  e.preventDefault();
+  await fetch(`${API}/api/upload-gallery`, { method: "POST", body: new FormData(galleryForm) });
+  alert("Gallery uploaded");
+  galleryForm.reset();
+};
+
+function openDeleteGallery() {
+  deleteGalleryPopup.classList.add("active");
+}
+
+deleteEvent.onchange = async e => {
+  selectedImages = [];
+  const imgs = await (await fetch(`${API}/api/gallery/${e.target.value}`)).json();
+  deleteImageGrid.innerHTML = "";
+  imgs.forEach(i => {
+    deleteImageGrid.innerHTML += `
+      <label>
+        <input type="checkbox" onchange="toggleImage(${i.id}, '${i.cloudinary_id}')">
+        <img src="${i.image_url}">
+      </label>`;
+  });
+};
+
+function toggleImage(id, cid) {
+  const i = selectedImages.findIndex(x => x.id === id);
+  i === -1 ? selectedImages.push({ id, cloudinary_id: cid }) : selectedImages.splice(i, 1);
+}
+
+async function deleteSelectedImages() {
+  await fetch(`${API}/api/delete-gallery-images`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ images: selectedImages })
+  });
+  alert("Images deleted");
+  deleteGalleryPopup.classList.remove("active");
+}
+
+function closeDeleteGallery() {
+  deleteGalleryPopup.classList.remove("active");
+}
+
+/* ================= CLIPS ================= */
+clipsForm.onsubmit = async e => {
+  e.preventDefault();
+  await fetch(`${API}/api/upload-clips`, { method: "POST", body: new FormData(clipsForm) });
+  alert("Clips uploaded");
+  clipsForm.reset();
+};
+
+function openDeleteClips() {
+  deleteClipsPopup.classList.add("active");
+}
+
+deleteClipsEvent.onchange = async e => {
+  selectedClipIds = [];
+  const vids = await (await fetch(`${API}/api/clips/${e.target.value}`)).json();
+  deleteClipsGrid.innerHTML = "";
+  vids.forEach(v => {
+    deleteClipsGrid.innerHTML += `
+      <label>
+        <input type="checkbox" onchange="toggleClip(${v.id})">
+        <video src="${v.video_url}" muted></video>
+      </label>`;
+  });
+};
+
+function toggleClip(id) {
+  const i = selectedClipIds.indexOf(id);
+  i === -1 ? selectedClipIds.push(id) : selectedClipIds.splice(i, 1);
+}
+
+async function deleteSelectedClips() {
+  await fetch(`${API}/api/delete-clips`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ids: selectedClipIds })
+  });
+  alert("Clips deleted");
+  deleteClipsPopup.classList.remove("active");
+}
+
+function closeDeleteClips() {
+  deleteClipsPopup.classList.remove("active");
+}
+
+/* ================= CLUBS ================= */
+const clubForm = document.getElementById("clubForm");
+const clubList = document.getElementById("clubList");
+const coordinatorContainer = document.getElementById("coordinatorContainer");
+const addClubBtn = document.getElementById("addClubBtn");
+const updateClubBtn = document.getElementById("updateClubBtn");
+const clubIdInput = document.getElementById("clubId");
+
+function addCoordinator(data = {}) {
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <input value="${data.name || ""}" placeholder="Name">
+    <input value="${data.mobile || ""}" placeholder="Mobile">
+    <input value="${data.branch || ""}" placeholder="Branch">
+    <button type="button" onclick="this.parentElement.remove()">✖</button>`;
+  coordinatorContainer.appendChild(div);
+}
+
+async function loadClubs() {
+  const clubs = await (await fetch(`${API}/api/clubs`)).json();
+  clubList.innerHTML = "";
+  clubs.forEach(c => {
+    clubList.innerHTML += `
+      <div class="admin-card">
+        <b>${c.club_name}</b>
+        <small>${c.department}</small><br>
+        <button onclick="editClub(${c.id})">Edit</button>
+        <button onclick="deleteClub(${c.id})">Delete</button>
+      </div>`;
+  });
+}
+loadClubs();
+
+clubForm.onsubmit = async e => {
+  e.preventDefault();
+  const coordinators = [...coordinatorContainer.children].map(r => ({
+    name: r.children[0].value,
+    mobile: r.children[1].value,
+    branch: r.children[2].value
+  }));
+
+  const data = Object.fromEntries(new FormData(clubForm));
+  data.coordinators = coordinators;
+
+  await fetch(`${API}/api/clubs`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  clubForm.reset();
+  coordinatorContainer.innerHTML = "";
+  loadClubs();
+};
+
+async function editClub(id) {
+  const club = await (await fetch(`${API}/api/clubs/${id}`)).json();
+  clubIdInput.value = club.id;
+  clubForm.club_name.value = club.club_name;
+  clubForm.department.value = club.department;
+  clubForm.description.value = club.description;
+  clubForm.rules.value = club.rules;
+  clubForm.whatsapp_link.value = club.whatsapp_link;
+
+  coordinatorContainer.innerHTML = "";
+  club.coordinators.forEach(addCoordinator);
+
+  addClubBtn.classList.add("hidden");
+  updateClubBtn.classList.remove("hidden");
+}
+
+updateClubBtn.onclick = async () => {
+  const coordinators = [...coordinatorContainer.children].map(r => ({
+    name: r.children[0].value,
+    mobile: r.children[1].value,
+    branch: r.children[2].value
+  }));
+
+  const data = Object.fromEntries(new FormData(clubForm));
+  data.coordinators = coordinators;
+
+  await fetch(`${API}/api/clubs/${clubIdInput.value}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  clubForm.reset();
+  coordinatorContainer.innerHTML = "";
+  clubIdInput.value = "";
+  addClubBtn.classList.remove("hidden");
+  updateClubBtn.classList.add("hidden");
+  loadClubs();
+};
+
+async function deleteClub(id) {
+  if (!confirm("Delete this club?")) return;
+  await fetch(`${API}/api/clubs/${id}`, { method: "DELETE" });
+  loadClubs();
+}
+</script>
+
+
+</body>
+</html>

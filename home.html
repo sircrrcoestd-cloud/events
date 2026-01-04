@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIR C.R. REDDY COLLEGE - Tech Carnival Home</title>
+  <link rel="icon" href="crrengglogo.png" type="image/png">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #1a1a2e;
+      --secondary-color: #16213e;
+      --accent-gold: #d4af37;
+      --accent-orange: #ff6b35;
+      --accent-cyan: #00d4ff;
+      --accent-green: #00e676;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --card-bg: #0f3460;
+      --border-color: #d4af37;
+      --hover-shadow: 0 10px 35px rgba(212, 175, 55, 0.3);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: var(--text-primary);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Animated Background Icons */
+    .background-icons {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-icon {
+      position: absolute;
+      font-size: 40px;
+      opacity: 0.08;
+      animation: float 20s infinite linear;
+    }
+
+    .floating-icon:nth-child(1) { left: 5%; top: 10%; animation-delay: 0s; animation-duration: 25s; }
+    .floating-icon:nth-child(2) { left: 15%; top: 20%; animation-delay: 2s; animation-duration: 30s; }
+    .floating-icon:nth-child(3) { left: 80%; top: 15%; animation-delay: 1s; animation-duration: 28s; }
+    .floating-icon:nth-child(4) { left: 85%; top: 35%; animation-delay: 3s; animation-duration: 26s; }
+    .floating-icon:nth-child(5) { left: 10%; top: 60%; animation-delay: 1.5s; animation-duration: 29s; }
+    .floating-icon:nth-child(6) { left: 90%; top: 70%; animation-delay: 2.5s; animation-duration: 27s; }
+    .floating-icon:nth-child(7) { left: 20%; top: 80%; animation-delay: 0.5s; animation-duration: 31s; }
+    .floating-icon:nth-child(8) { left: 75%; top: 50%; animation-delay: 3.5s; animation-duration: 26s; }
+
+    @keyframes float {
+      0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      50% { transform: translateY(-30px) translateX(20px) rotate(180deg); }
+      100% { transform: translateY(0px) translateX(0px) rotate(360deg); }
+    }
+
+    /* Animated Particles */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--accent-gold);
+      padding: 30px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .logo-section img {
+      width: 70px;
+      height: 70px;
+      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .college-info h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .college-info p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      letter-spacing: 2px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+      transition: var(--transition);
+      text-transform: uppercase;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange));
+      transition: var(--transition);
+    }
+
+    nav a:hover {
+      color: var(--accent-gold);
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-title h1 {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+      letter-spacing: 2px;
+      animation: titlePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .page-title p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+
+    .title-underline {
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange));
+      margin: 20px auto 0;
+      border-radius: 2px;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      animation: underlinePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes underlinePulse {
+      0%, 100% { width: 100px; }
+      50% { width: 120px; }
+    }
+
+    /* Box Container */
+    .box-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 35px;
+      margin-top: 50px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .box {
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.6) 0%, rgba(26, 26, 46, 0.6) 100%);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--accent-gold);
+      border-radius: 16px;
+      padding: 35px;
+      cursor: pointer;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    .box:hover::before {
+      left: 100%;
+    }
+
+    .box:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: var(--hover-shadow), 0 0 30px rgba(0, 212, 255, 0.2);
+      border-color: var(--accent-orange);
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.8) 0%, rgba(26, 26, 46, 0.8) 100%);
+    }
+
+    .box-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      animation: iconBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.1); }
+    }
+
+    .box:hover .box-icon {
+      animation: iconSpin 0.6s ease-in-out;
+    }
+
+    @keyframes iconSpin {
+      0% { transform: rotateY(0) scale(1); }
+      50% { transform: rotateY(180deg) scale(1.2); }
+      100% { transform: rotateY(0) scale(1); }
+    }
+
+    .box h2 {
+      color: var(--accent-gold);
+      font-size: 24px;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+      transition: var(--transition);
+    }
+
+    .box:hover h2 {
+      color: var(--accent-orange);
+      text-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+    }
+
+    .box p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .snapshot-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(212, 175, 55, 0.05);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent-gold);
+    }
+
+    .snapshot-row span {
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .highlight {
+      margin-top: 15px;
+      padding: 15px;
+      color: var(--accent-green);
+      font-weight: 700;
+      background: rgba(0, 230, 118, 0.1);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent-green);
+      letter-spacing: 0.5px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+      color: var(--primary-color);
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: var(--transition);
+      border: 2px solid transparent;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: 0.5s;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 25px rgba(255, 107, 53, 0.5);
+      letter-spacing: 2px;
+    }
+
+    /* Flow Section */
+    .flow {
+      margin-top: 60px;
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.6) 0%, rgba(26, 26, 46, 0.6) 100%);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--accent-orange);
+      border-left: 4px solid var(--accent-gold);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+    }
+
+    .flow h3 {
+      color: var(--accent-gold);
+      font-size: 28px;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    .flow ol {
+      list-style: none;
+      counter-reset: item;
+    }
+
+    .flow li {
+      margin: 15px 0;
+      color: var(--text-secondary);
+      padding-left: 40px;
+      position: relative;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .flow li::before {
+      content: counter(item);
+      counter-increment: item;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+      color: var(--primary-color);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, rgba(15, 52, 96, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
+      border-top: 2px solid var(--accent-gold);
+      padding: 40px 0;
+      margin-top: 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      text-align: center;
+    }
+
+    .footer-text {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-size: 13px;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-orange);
+      text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
+      padding-top: 20px;
+      color: #888;
+      font-size: 12px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 20px;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .logo-section {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .college-info h1 {
+        font-size: 24px;
+      }
+
+      nav {
+        gap: 15px;
+        justify-content: center;
+        width: 100%;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      main {
+        padding: 40px 20px;
+      }
+
+      .page-title h1 {
+        font-size: 32px;
+      }
+
+      .box-container {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        padding: 30px 20px;
+      }
+
+      .footer-content {
+        padding: 0 20px;
+      }
+
+      .footer-links {
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 20px 0;
+      }
+
+      .college-info h1 {
+        font-size: 18px;
+      }
+
+      .college-info p {
+        font-size: 11px;
+      }
+
+      nav {
+        gap: 10px;
+      }
+
+      nav a {
+        font-size: 11px;
+      }
+
+      main {
+        padding: 30px 15px;
+      }
+
+      .page-title h1 {
+        font-size: 24px;
+      }
+
+      .box-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .box {
+        padding: 25px 20px;
+      }
+
+      .box h2 {
+        font-size: 20px;
+      }
+
+      .cta-button {
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 12px;
+      }
+
+      .flow {
+        padding: 20px 15px;
+      }
+
+      .flow h3 {
+        font-size: 22px;
+      }
+
+      .flow li {
+        padding-left: 40px;
+        font-size: 13px;
+      }
+    }
+
+    /* Accessibility */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--accent-gold);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background Icons -->
+  <div class="background-icons">
+    <div class="floating-icon">💻</div>
+    <div class="floating-icon">🎨</div>
+    <div class="floating-icon">🚀</div>
+    <div class="floating-icon">⚡</div>
+    <div class="floating-icon">🎯</div>
+    <div class="floating-icon">🏆</div>
+    <div class="floating-icon">✨</div>
+    <div class="floating-icon">🎭</div>
+  </div>
+
+  <header>
+    <div class="header-container">
+      <div class="logo-section">
+        <img src="crrengglogo.png" alt="CRR College Logo">
+        <div class="college-info">
+          <h1>SIR C.R. REDDY COLLEGE OF ENGINEERING</h1>
+          <p>Department of Computer Science and Engineering</p>
+        </div>
+      </div>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <a href="home.html" aria-label="Home">Home</a>
+        <a href="index.html" aria-label="Events and Fests">Fests</a>
+        <a href="clubs.html" aria-label="Student Clubs">Clubs</a>
+        <a href="gallery.html" aria-label="Photo Gallery">Gallery</a>
+        <a href="clips.html" aria-label="Video Clips">Clips</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" aria-label="Tech Carnival Home Content">
+    <div class="page-title">
+      <h1>🎉 CRR TECH CARNIVAL</h1>
+      <p>Celebrate Innovation • Embrace Creativity • Experience Excellence</p>
+      <div class="title-underline"></div>
+    </div>
+
+    <div class="box-container">
+      <!-- About Box -->
+      <div class="box">
+        <div class="box-icon">🎪</div>
+        <h2>About CRR Tech Carnival</h2>
+        <p>
+          CELESTRA is the flagship techno-cultural carnival of Sir C.R. Reddy College of Engineering, 
+          bringing together innovation, creativity, and competition. It celebrates technology, 
+          teamwork, and talent across multiple domains. Join us for an unforgettable experience!
+        </p>
+        <button class="cta-button" onclick="window.location.href='index.html'">View All Events</button>
+      </div>
+
+      <!-- Snapshot Box -->
+      <div class="box">
+        <div class="box-icon">📊</div>
+        <h2>Fest Snapshot</h2>
+        <p>Block your dates and get your team ready. Limited seats for core events. Don't miss out on the opportunity to showcase your talent and compete with the best!</p>
+        <div class="snapshot-row">
+          <span>📅 Dates: Upcoming</span>
+          <span>📍 Venue: Campus</span>
+        </div>
+        <div class="highlight">
+          ⏰ Early-bird registration closes on 20 February 2025
+        </div>
+      </div>
+    </div>
+
+    <!-- Registration Flow Section -->
+    <div class="flow">
+      <h3>📋 General Registration Flow</h3>
+      <ol>
+        <li>Select the event card and read its specific rules carefully.</li>
+        <li>Click on the "Register" button for that event to open the registration form.</li>
+        <li>Fill in all mandatory details (Name, Roll No, Branch, Year, Contact Info).</li>
+        <li>Complete fee payment using the UPI or cash method mentioned in the form.</li>
+        <li>Upload payment proof if requested and submit the completed form.</li>
+        <li>Save your confirmation email or screenshot for future reference.</li>
+        <li>Join the official WhatsApp group for event updates and announcements.</li>
+        <li>Report at the venue 30 minutes before your event start time with your college ID.</li>
+      </ol>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="home.html">Home</a>
+        <a href="index.html">Fests</a>
+        <a href="clubs.html">Clubs</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="clips.html">Clips</a>
+      </div>
+      <p class="footer-text">© 2024-2025 Sir C.R. Reddy College of Engineering. All Rights Reserved.</p>
+      <p class="footer-text">Fest Conveners: CSE / ECE / EEE Department</p>
+      <div class="footer-bottom">
+        <p>Designed & Developed with YASWANTH ANGAJALA (CSE 23-27) | Tech Carnival</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Particle effect on button clicks
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('cta-button')) {
+        createParticles(e.pageX, e.pageY);
+      }
+    });
+
+    function createParticles(x, y) {
+      const particles = ['✨', '🎉', '⭐', '🎊', '💫'];
+      for (let i = 0; i < 5; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.fontSize = '20px';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '999';
+        document.body.appendChild(particle);
+
+        const angle = (Math.PI * 2 * i) / 5;
+        const velocity = {
+          x: Math.cos(angle) * 8,
+          y: Math.sin(angle) * 8 - 5
+        };
+
+        let life = 1;
+        let pos = { x, y };
+
+        const animate = () => {
+          life -= 0.02;
+          pos.x += velocity.x;
+          pos.y += velocity.y;
+          velocity.y += 0.2;
+
+          particle.style.left = pos.x + 'px';
+          particle.style.top = pos.y + 'px';
+          particle.style.opacity = life;
+          particle.style.transform = `scale(${life})`;
+
+          if (life > 0) {
+            requestAnimationFrame(animate);
+          } else {
+            particle.remove();
+          }
+        };
+        animate();
+      }
+    }
+  </script>
+</body>
+</html>

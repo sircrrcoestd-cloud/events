@@ -737,7 +737,7 @@
     </div>
   </main>
 
-  <footer>
+<footer>
     <div class="footer-content">
       <div class="footer-links">
         <a href="home.html">Home</a>
@@ -747,10 +747,18 @@
         <a href="clips.html">Clips</a>
       </div>
       <p class="footer-text">© 2024-2025 Sir C.R. Reddy College of Engineering. All Rights Reserved.</p>
-      <p class="footer-text">Fest Conveners: CSE / ECE / EEE Department</p>
+      <p class="footer-text">Department of Computer Science and Engineering</p>
       <div class="footer-bottom">
         <p>Designed & Developed with YASWANTH ANGAJALA (CSE 23-27) | Tech Carnival</p>
-f (e.target.classList.contains('cta-button')) {
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    // Particle effect on button clicks
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('cta-button')) {
         createParticles(e.pageX, e.pageY);
       }
     });
@@ -763,12 +771,9 @@ f (e.target.classList.contains('cta-button')) {
         particle.textContent = particles[Math.floor(Math.random() * particles.length)];
         particle.style.left = x + 'px';
         particle.style.top = y + 'px';
-        particle.<<<<<<< HEAD
-        <p>Designed & Developed with YASWANTH ANGAJALA (CSE 23-27) | Tech Carnival</p>
-=======
-        <p>Designed & Developed with ❤️ by CSE Students | Tech Carnival v2.0</p>
->>>>>>> f1c3724291bcb2c8d79b2f70993303274fecc767
-.style.zIndex = '999';
+        particle.style.fontSize = '20px';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '999';
         document.body.appendChild(particle);
 
         const angle = (Math.PI * 2 * i) / 5;

@@ -991,7 +991,7 @@
       const festEmojis = ['🎭', '🎬', '🎤', '🎸', '🎨', '🏆', '🎯', '🚀', '⚡', '🎪'];
       let emojiIndex = 0;
 
-      fetch("http://localhost:3000/api/fests")
+      fetch("https://events.sircrrcoestd.in//api/fests")
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch fests');
           return res.json();

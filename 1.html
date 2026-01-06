@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sir C R R College Tech Fest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
+    }
+
+    /* ===== BASE / ANCIENT THEME COLORS ===== */
+    :root{
+      --bg-dark:#0b0a09;
+      --bg-card:#181311;
+      --accent-gold:#d4af37;
+      --accent-gold-soft:#b18b2f;
+      --accent-red:#8b3131;
+      --text-main:#f3e9d2;
+      --text-muted:#c0b49a;
+      --border-soft:rgba(212,175,55,0.5);
+      --glass:rgba(12,10,8,0.82);
+    }
+
+    body,html{
+      height:100%;
+      color:var(--text-main);
+      overflow-x:hidden;
+    }
+
+    /* ===== FULL SCREEN ANIMATED TECH BACKGROUND ===== */
+    .tech-bg-slideshow{
+      position:fixed;
+      inset:0;
+      z-index:-3;
+      overflow:hidden;
+    }
+    .tech-bg-slideshow span{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:0;
+      animation: techSlide 28s linear infinite;
+      transform:scale(1);
+    }
+
+    /* Tech fest related images (Unsplash – free to use) [web:34] */
+    .tech-bg-slideshow span:nth-child(1){
+      background-image:url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80");
+    }
+    .tech-bg-slideshow span:nth-child(2){
+      background-image:url("https://images.unsplash.com/photo-1581090700227-1e7e6c561a6a?auto=format&fit=crop&w=1400&q=80");
+      animation-delay:7s;
+    }
+    .tech-bg-slideshow span:nth-child(3){
+      background-image:url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80");
+      animation-delay:14s;
+    }
+    .tech-bg-slideshow span:nth-child(4){
+      background-image:url("https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1400&q=80");
+      animation-delay:21s;
+    }
+
+    @keyframes techSlide{
+      0%   {opacity:0;   transform:scale(1);}
+      8%   {opacity:1;}
+      25%  {opacity:1;}
+      32%  {opacity:0;   transform:scale(1.08);}
+      100% {opacity:0;   transform:scale(1.08);}
+    }
+
+    /* Extra dark + ancient color overlay on top of images */
+    .tech-bg-overlay{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background:
+        radial-gradient(circle at top, rgba(212,175,55,0.12), transparent 52%),
+        linear-gradient(to bottom right, rgba(0,0,0,0.92), rgba(12,8,4,0.97));
+    }
+
+    /* ==== FLOATING PARTICLES BG (SUBTLE) ==== */
+    .bg-orbits{
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+      z-index:-1;
+    }
+    .orb{
+      position:absolute;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(212,175,55,0.45), transparent 65%);
+      filter:blur(4px);
+      opacity:0.6;
+      animation: floatOrb 24s linear infinite;
+    }
+    .orb:nth-child(1){top:-40px; left:5%;}
+    .orb:nth-child(2){top:60%; right:-60px; animation-delay:6s;}
+    .orb:nth-child(3){bottom:-80px; left:40%; animation-delay:12s;}
+
+    @keyframes floatOrb{
+      0%{transform:translateY(0) translateX(0);}
+      50%{transform:translateY(-40px) translateX(20px);}
+      100%{transform:translateY(0) translateX(0);}
+    }
+
+    .overlay{
+      /* old overlay not needed now, but kept if you want extra dark layer
+         If you feel page too dark, you can remove or lighten this. */
+      display:none;
+    }
+
+    /* ===== TOP BAR & HERO ===== */
+    header{
+      padding:24px 6vw 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      position:relative;
+      z-index:1;
+    }
+
+    .logo-block{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .logo-block span:first-child{
+      font-family:'Cinzel', serif;
+      letter-spacing:3px;
+      font-size:0.85rem;
+      text-transform:uppercase;
+      color:var(--text-muted);
+    }
+    .logo-block span:last-child{
+      font-family:'Cinzel', serif;
+      font-size:1.35rem;
+      color:var(--accent-gold);
+    }
+
+    nav{
+      display:flex;
+      gap:18px;
+      font-size:0.9rem;
+    }
+    nav a{
+      color:var(--text-muted);
+      text-decoration:none;
+      position:relative;
+      padding-bottom:4px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:0.8rem;
+    }
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:2px;
+      background:linear-gradient(90deg,var(--accent-gold),var(--accent-red));
+      transition:width 0.3s;
+    }
+    nav a:hover{
+      color:var(--text-main);
+    }
+    nav a:hover::after{
+      width:100%;
+    }
+
+    .hero{
+      padding:40px 6vw 25px;
+      display:grid;
+      grid-template-columns:minmax(0,2fr) minmax(0,1.4fr);
+      gap:40px;
+      align-items:center;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero-left h1{
+      font-family:'Cinzel', serif;
+      font-size:2.8rem;
+      line-height:1.2;
+      color:var(--accent-gold);
+      text-shadow:0 0 30px rgba(212,175,55,0.7);
+    }
+    .hero-left h1 span{
+      color:var(--text-main);
+      font-size:1.6rem;
+      display:block;
+      margin-top:8px;
+    }
+    .hero-left p{
+      margin-top:14px;
+      max-width:560px;
+      color:var(--text-muted);
+      font-size:0.98rem;
+    }
+
+    .hero-tags{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .pill{
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid var(--border-soft);
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      background:rgba(0,0,0,0.55);
+      color:var(--text-main);
+    }
+
+    .hero-cta{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+    .btn-primary,
+    .btn-ghost{
+      cursor:pointer;
+      border-radius:999px;
+      padding:10px 22px;
+      font-size:0.9rem;
+      letter-spacing:0.5px;
+      border:1px solid transparent;
+      transition:0.25s;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent-gold),var(--accent-red));
+      color:#120f0b;
+      font-weight:600;
+      box-shadow:0 0 22px rgba(212,175,55,0.55);
+    }
+    .btn-primary:hover{
+      filter:brightness(1.05);
+      transform:translateY(-1px);
+      box-shadow:0 0 30px rgba(212,175,55,0.85);
+    }
+    .btn-ghost{
+      background:rgba(0,0,0,0.5);
+      color:var(--text-main);
+      border-color:var(--border-soft);
+    }
+    .btn-ghost:hover{
+      background:rgba(0,0,0,0.8);
+      transform:translateY(-1px);
+    }
+
+    .hero-right{
+      background:var(--glass);
+      border-radius:20px;
+      padding:18px 18px 16px;
+      border:1px solid rgba(255,255,255,0.06);
+      backdrop-filter:blur(14px);
+      box-shadow:0 0 40px rgba(0,0,0,0.75);
+    }
+    .hero-right h2{
+      font-family:'Cinzel', serif;
+      font-size:1.15rem;
+      margin-bottom:8px;
+      color:var(--accent-gold-soft);
+    }
+    .hero-right p{
+      font-size:0.85rem;
+      color:var(--text-muted);
+      margin-bottom:14px;
+    }
+    .meta-line{
+      display:flex;
+      justify-content:space-between;
+      font-size:0.8rem;
+      color:var(--text-muted);
+      margin-bottom:6px;
+    }
+    .meta-line span strong{
+      color:var(--text-main);
+    }
+    .meta-highlight{
+      margin-top:10px;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px dashed var(--accent-gold-soft);
+      font-size:0.8rem;
+      color:var(--accent-gold);
+      text-align:center;
+    }
+
+    /* ===== EVENTS SECTION ===== */
+    .section{
+      padding:25px 6vw 15px;
+      position:relative;
+      z-index:1;
+    }
+    .section-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .section-title{
+      font-family:'Cinzel', serif;
+      font-size:1.4rem;
+      color:var(--accent-gold);
+    }
+    .section-sub{
+      font-size:0.85rem;
+      color:var(--text-muted);
+    }
+    .section-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .btn-add{
+      cursor:pointer;
+      border-radius:999px;
+      padding:8px 18px;
+      font-size:0.8rem;
+      border:1px dashed var(--accent-gold-soft);
+      background:rgba(0,0,0,0.55);
+      color:var(--accent-gold);
+      display:flex;
+      align-items:center;
+      gap:6px;
+      transition:0.25s;
+    }
+    .btn-add span{
+      font-size:1rem;
+    }
+    .btn-add:hover{
+      background:rgba(0,0,0,0.9);
+    }
+
+    .cards-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:var(--bg-card);
+      border-radius:16px;
+      padding:16px 16px 14px;
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 0 26px rgba(0,0,0,0.7);
+      position:relative;
+      overflow:hidden;
+      transition:transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top left, rgba(212,175,55,0.24), transparent 55%);
+      opacity:0;
+      transition:opacity 0.25s;
+      pointer-events:none;
+    }
+    .card:hover{
+      transform:translateY(-8px);
+      border-color:rgba(212,175,55,0.6);
+      box-shadow:0 0 40px rgba(212,175,55,0.3);
+    }
+    .card:hover::before{
+      opacity:1;
+    }
+
+    .card-tag{
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:var(--accent-gold-soft);
+      margin-bottom:4px;
+    }
+    .card h3{
+      font-size:1.05rem;
+      color:var(--text-main);
+      margin-bottom:6px;
+      font-family:'Cinzel', serif;
+    }
+    .card p{
+      font-size:0.85rem;
+      color:var(--text-muted);
+      margin-bottom:10px;
+    }
+
+    .card-meta{
+      font-size:0.78rem;
+      color:var(--text-muted);
+      margin-bottom:10px;
+    }
+
+    .card-actions{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-top:4px;
+    }
+
+    .card button{
+      cursor:pointer;
+      border-radius:999px;
+      border:1px solid transparent;
+      padding:7px 14px;
+      font-size:0.8rem;
+      background:rgba(0,0,0,0.7);
+      color:var(--text-main);
+      transition:0.25s;
+    }
+    .card button.btn-outline{
+      border-color:var(--accent-gold-soft);
+      color:var(--accent-gold);
+    }
+    .card button.btn-outline:hover{
+      background:rgba(0,0,0,0.95);
+    }
+    .card button.btn-fill{
+      background:linear-gradient(135deg,var(--accent-gold),var(--accent-red));
+      color:#120f0b;
+      font-weight:600;
+      box-shadow:0 0 16px rgba(212,175,55,0.5);
+    }
+    .card button.btn-fill:hover{
+      filter:brightness(1.05);
+    }
+
+    /* ===== REGISTRATION INSTRUCTIONS PANEL ===== */
+    .instructions{
+      margin-top:10px;
+      padding:10px 12px;
+      background:rgba(0,0,0,0.72);
+      border-radius:12px;
+      border:1px dashed rgba(212,175,55,0.5);
+      font-size:0.8rem;
+      color:var(--text-muted);
+      display:none;
+    }
+    .instructions h4{
+      font-size:0.9rem;
+      margin-bottom:6px;
+      color:var(--accent-gold);
+      font-family:'Cinzel', serif;
+    }
+    .instructions ol{
+      padding-left:16px;
+      margin:0;
+    }
+    .instructions li{
+      margin-bottom:4px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer{
+      padding:18px 6vw 20px;
+      margin-top:20px;
+      border-top:1px solid rgba(255,255,255,0.06);
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px;
+      font-size:0.8rem;
+      color:var(--text-muted);
+      position:relative;
+      z-index:1;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:900px){
+      .hero{
+        grid-template-columns:1fr;
+      }
+      .hero-right{
+        order:-1;
+      }
+    }
+
+    @media(max-width:640px){
+      header{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      nav{
+        width:100%;
+        justify-content:flex-start;
+        flex-wrap:wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Animated Tech Background -->
+  <div class="tech-bg-slideshow">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="tech-bg-overlay"></div>
+
+  <!-- Floating Orbs -->
+  <div class="bg-orbits">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- Top -->
+  <header>
+    <div class="logo-block">
+      <span>Sir C R R College of Engineering</span>
+      <span>CRR TECH CARNIVAL 2025</span>
+    </div>
+    <nav>
+      <a href="#events">Events</a>
+      <a href="#instructions">How to Register</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left">
+      <h1>
+        Where Code Meets
+        <span>Ancient Vibes • Future Tech</span>
+      </h1>
+      <p>
+        Experience a one‑of‑a‑kind fest that blends the energy of modern
+        hackathons with the timeless aura of classical India – coding, robotics,
+        gaming, AI, and more on a royal vintage canvas.
+      </p>
+
+      <div class="hero-tags">
+        <span class="pill">Hackathons</span>
+        <span class="pill">Robotics Arena</span>
+        <span class="pill">Gaming Wars</span>
+        <span class="pill">AI & Web3 Talks</span>
+      </div>
+
+      <div class="hero-cta">
+        <button class="btn-primary">Register for Fest Pass</button>
+        <button class="btn-ghost">View All Events</button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <h2>Fest Snapshot</h2>
+      <p>
+        Block your dates and get your team ready. Limited seats for core events.
+      </p>
+      <div class="meta-line">
+        <span><strong>Dates:</strong> 6–8 March 2025</span>
+        <span><strong>Venue:</strong> CRR CE Campus</span>
+      </div>
+      <div class="meta-line">
+        <span><strong>Mode:</strong> Offline</span>
+        <span><strong>Team Size:</strong> 1–4 (event wise)</span>
+      </div>
+      <div class="meta-highlight">
+        Early‑bird registration closes on 20 February 2025.
+      </div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="section" id="events">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Flagship Events</h2>
+        <p class="section-sub">
+          Click any event to expand registration instructions. Use the “+ Add Event” button to plug in new events later.
+        </p>
+      </div>
+      <div class="section-actions">
+        <button class="btn-add">
+          <span>＋</span> Add New Event
+        </button>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- HACKATHON -->
+      <article class="card">
+        <div class="card-tag">24‑Hour Hackathon</div>
+        <h3>CRR CodeForge</h3>
+        <p>
+          Non‑stop 24‑hour product build where teams design, code and pitch a
+          working prototype around real‑world problem statements.
+        </p>
+        <div class="card-meta">
+          Team size: 2–4 • Reg. fee: ₹300 per team • Domains: Web, App, AI/ML.
+        </div>
+        <div class="card-actions">
+          <button class="btn-outline" onclick="toggleInstructions('hackathon-inst')">
+            View instructions
+          </button>
+          <button class="btn-fill">
+            Register (Google Form)
+          </button>
+        </div>
+
+        <!-- Instructions block -->
+        <div class="instructions" id="hackathon-inst">
+          <h4>How to register – CRR CodeForge</h4>
+          <ol>
+            <li>Create a team of 2–4 members from any year/branch.</li>
+            <li>Decide a team name and choose your preferred domain (Web/App/AI).</li>
+            <li>Open the Hackathon Google Form link given in the Register button.</li>
+            <li>Fill in team details, college IDs, email and phone numbers carefully.</li>
+            <li>Complete payment at the fest registration desk or via UPI as mentioned in the form.</li>
+            <li>Upload payment screenshot in the form and submit.</li>
+            <li>Wait for confirmation mail/WhatsApp message from the coordinators.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- ROBOTICS -->
+      <article class="card">
+        <div class="card-tag">Robotics Arena</div>
+        <h3>Robo Rumble & Line Tracer</h3>
+        <p>
+          Bring your wired or wireless bots for intense arena battles and
+          precision line‑following challenges.
+        </p>
+        <div class="card-meta">
+          Team size: 2–3 • Categories: Robo War, Line Follower • Limited slots.
+        </div>
+        <div class="card-actions">
+          <button class="btn-outline" onclick="toggleInstructions('robo-inst')">
+            View instructions
+          </button>
+          <button class="btn-fill">
+            Register (Google Form)
+          </button>
+        </div>
+
+        <div class="instructions" id="robo-inst">
+          <h4>How to register – Robotics Events</h4>
+          <ol>
+            <li>Form a team of 2–3 members and select event type (Robo War / Line Follower / Both).</li>
+            <li>Check bot dimensions, weight limits and voltage rules from the rulebook PDF shared on the form.</li>
+            <li>Open the Robotics Registration Form and enter team + bot details.</li>
+            <li>Pay the event fee as per category and keep the UPI transaction ID ready.</li>
+            <li>Upload the payment proof and submit the form.</li>
+            <li>Join the WhatsApp group link shown after form submission for updates.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- GAMING -->
+      <article class="card">
+        <div class="card-tag">E‑Sports</div>
+        <h3>CRR Gaming Arena</h3>
+        <p>
+          Competitive gaming showdowns with titles like BGMI, Valorant and FC,
+          complete with live casting and leaderboards.
+        </p>
+        <div class="card-meta">
+          Solo & Squad modes • On‑spot finals • Exciting prize pool.
+        </div>
+        <div class="card-actions">
+          <button class="btn-outline" onclick="toggleInstructions('gaming-inst')">
+            View instructions
+          </button>
+          <button class="btn-fill">
+            Register (Google Form)
+          </button>
+        </div>
+
+        <div class="instructions" id="gaming-inst">
+          <h4>How to register – Gaming Arena</h4>
+          <ol>
+            <li>Choose your game (BGMI / Valorant / FC) and mode (Solo / Squad).</li>
+            <li>Keep your in‑game ID, team name and captain contact number ready.</li>
+            <li>Fill the Gaming Registration Form and select preferred slot.</li>
+            <li>Pay the entry fee online or at the gaming desk.</li>
+            <li>Join the event Discord / WhatsApp server for lobby codes & rules.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- AI & TECH TALKS -->
+      <article class="card">
+        <div class="card-tag">Talks & Workshops</div>
+        <h3>AI, Cloud & Startups</h3>
+        <p>
+          Deep‑dive sessions from industry experts on AI, cloud, cybersecurity,
+          and how to turn your side‑project into a startup.
+        </p>
+        <div class="card-meta">
+          Open to all branches • Limited seats • E‑certificates provided.
+        </div>
+        <div class="card-actions">
+          <button class="btn-outline" onclick="toggleInstructions('talks-inst')">
+            View instructions
+          </button>
+          <button class="btn-fill">
+            Register (Google Form)
+          </button>
+        </div>
+
+        <div class="instructions" id="talks-inst">
+          <h4>How to register – AI & Tech Talks</h4>
+          <ol>
+            <li>Select the sessions you want (AI, Cloud, Cybersecurity, Startup 101).</li>
+            <li>Open the Talks Registration Form from the button provided.</li>
+            <li>Enter your name, branch, year, and active email ID.</li>
+            <li>Choose time slots and confirm seat availability.</li>
+            <li>Submit the form; you will receive your entry QR / pass by email.</li>
+          </ol>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- GENERAL REGISTRATION INSTRUCTIONS -->
+  <section class="section" id="instructions">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">General Registration Flow</h2>
+        <p class="section-sub">
+          Keep this common format for any new event you add.
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <ol style="font-size:0.9rem; color:var(--text-muted); padding-left:18px; margin-bottom:6px;">
+        <li>Select the event card and read its specific rules.</li>
+        <li>Click on the “Register (Google Form)” button for that event.</li>
+        <li>Fill in all mandatory details (name, roll no, branch, year, contact).</li>
+        <li>Complete fee payment using the UPI / cash method mentioned.</li>
+        <li>Upload payment proof if asked and submit the form.</li>
+        <li>Save confirmation mail / screenshot and join the official WhatsApp group.</li>
+        <li>Report at the venue 30 minutes before your event start time with college ID.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <footer id="contact">
+    <span>© 2025 Sir C R R College of Engineering • CRR Tech Carnival</span>
+    <span>Fest Conveners: CSE / ECE / EEE Dept • Contact: +91-XXXXXXXXXX</span>
+  </footer>
+
+  <!-- Minimal JS for toggling instruction panels -->
+  <script>
+    function toggleInstructions(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.style.display = (el.style.display === "block") ? "none" : "block";
+    }
+  </script>
+</body>
+</html>

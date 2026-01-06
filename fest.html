@@ -1029,7 +1029,7 @@
         festTitle.textContent = `🎉 ${festName} - Events`;
       }
 
-      fetch(`http://localhost:3000/api/events/${festId}`)
+      fetch(`https://events.sircrrcoestd.in//api/events/${festId}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch events');
           return res.json();

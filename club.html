@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Club Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="crrengglogo.png">
+
+  <style>
+    body{
+      margin:0;
+      font-family:"Segoe UI",sans-serif;
+      background:linear-gradient(135deg,#0b132b,#1c2541);
+      color:#fff;
+    }
+    header{
+      padding:20px;
+      border-bottom:2px solid #d4af37;
+    }
+    nav a{
+      color:#fff;
+      margin-right:20px;
+      text-decoration:none;
+      font-weight:600;
+    }
+    .container{
+      max-width:900px;
+      margin:40px auto;
+      background:rgba(255,255,255,.08);
+      padding:30px;
+      border-radius:20px;
+      border:1px solid rgba(212,175,55,.3);
+    }
+    h1{
+      color:#ffd966;
+    }
+    .coordinator{
+      margin-top:15px;
+      padding:10px;
+      background:rgba(212,175,55,.15);
+      border-radius:10px;
+    }
+    button{
+      margin-top:25px;
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(135deg,#d4af37,#ffdf8a);
+      font-weight:700;
+      cursor:pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <a href="clubs.html">← Back to Clubs</a>
+  </nav>
+</header>
+
+<div class="container" id="clubBox">
+  Loading...
+</div>
+
+<script>
+const API = "http://localhost:3000";
+const params = new URLSearchParams(window.location.search);
+const clubId = params.get("club_id");
+
+console.log("Club ID:", clubId);
+
+if (!clubId) {
+  document.getElementById("clubBox").innerHTML = "Invalid club";
+} else {
+  fetch(API + "/api/clubs/" + clubId)
+    .then(res => res.json())
+    .then(c => {
+      document.getElementById("clubBox").innerHTML = `
+        <h1>${c.club_name}</h1>
+        <p>${c.description}</p>
+
+        <h3>📋 Rules</h3>
+        <p>${c.rules || "Follow college rules"}</p>
+
+        <h3>👨‍🏫 Coordinators</h3>
+        ${c.coordinators.map(co => `
+          <div class="coordinator">
+            <b>${co.name}</b><br>
+            📱 ${co.mobile}<br>
+            🎓 ${co.branch}
+          </div>
+        `).join("")}
+
+        <button onclick="window.open('${c.whatsapp_link}','_blank')">
+          Join WhatsApp Group
+        </button>
+      `;
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("clubBox").innerHTML =
+        "Failed to load club details";
+    });
+}
+</script>
+
+</body>
+</html>

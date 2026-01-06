@@ -64,6 +64,13 @@ db.getConnection((err, connection) => {
 // ======================================================
 // ====================== FEST APIs ======================
 // ======================================================
+app.get("/health", (req, res) => {
+  res.json({
+    status: "OK",
+    uptime: process.uptime(),
+    time: new Date()
+  });
+});
 
 // ➕ ADD FEST
 app.post("/api/fests", (req, res) => {

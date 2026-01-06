@@ -528,5 +528,5 @@ app.delete("/api/clubs/:id", async (req, res) => {
 
 // ====================== SERVER ======================
 app.listen(3000, () => {
-  console.log("🚀 Server running on http://localhost:3000");
+  console.log("🚀 Server running on https://events.sircrrcoestd.in/");
 });

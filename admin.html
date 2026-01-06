@@ -5,20 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIR C.R. REDDY COLLEGE - Admin Panel</title>
   <link rel="icon" href="crrengglogo.png" type="image/png">
-<<<<<<< HEAD
-=======
   
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
     :root {
       --primary-color: #1a1a2e;
       --secondary-color: #16213e;
@@ -548,11 +542,7 @@
         <img src="crrengglogo.png" alt="CRR College Logo">
         <div class="college-info">
           <h1>SIR C.R. REDDY COLLEGE OF ENGINEERING</h1>
-<<<<<<< HEAD
-          <p>AUTONOMOUS</p>
-=======
           <p>Department of Computer Science and Engineering</p>
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
         </div>
       </div>
 
@@ -731,11 +721,7 @@
   </div>
 
 <script>
-<<<<<<< HEAD
 const API = "http://localhost:3000";
-=======
-const API = "https://events.sircrrcoestd.in/";
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 
 /* ================= DOM ELEMENTS ================= */
 const festForm = document.getElementById("festForm");
@@ -772,35 +758,14 @@ let selectedFestId = null;
 let selectedImages = [];
 let selectedClipIds = [];
 
-<<<<<<< HEAD
 festSelect.addEventListener("change", e => {
   const festId = e.target.value;
 
-=======
-/* ================= HELPER ================= */
-async function loadEventsForDropdown(festId, targetSelect) {
-  if (!festId) {
-    targetSelect.innerHTML = `<option value="">Select Event</option>`;
-    return;
-  }
-
-  const events = await (await fetch(`${API}/api/events/${festId}`)).json();
-  targetSelect.innerHTML = `<option value="">Select Event</option>`;
-  events.forEach(e => {
-    targetSelect.innerHTML += `<option value="${e.id}">${e.event_name}</option>`;
-  });
-}
-
-/* ================= FEST SELECT ================= */
-festSelect.onchange = e => {
-  const festId = e.target.value;
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   if (!festId) {
     selectedFestId = null;
     eventList.innerHTML = "";
     return;
   }
-<<<<<<< HEAD
 
   selectedFestId = festId;      // 🔥 MOST IMPORTANT
   loadEvents(festId);           // 🔥 Fetch events of selected fest
@@ -834,19 +799,6 @@ clipsFest.addEventListener("change", e => {
 
 
 /* ================= LOAD FESTS FOR DROPDOWNS ONLY ================= */
-=======
-  selectedFestId = festId;
-  loadEvents(festId);
-};
-
-/* ================= DROPDOWNS ================= */
-galleryFest.onchange = e => loadEventsForDropdown(e.target.value, galleryEvent);
-clipsFest.onchange = e => loadEventsForDropdown(e.target.value, clipsEvent);
-deleteFest.onchange = e => loadEventsForDropdown(e.target.value, deleteEvent);
-deleteClipsFest.onchange = e => loadEventsForDropdown(e.target.value, deleteClipsEvent);
-
-/* ================= LOAD FEST DROPDOWNS ================= */
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 async function loadAllFestsForDropdowns() {
   const fests = await (await fetch(`${API}/api/fests`)).json();
 
@@ -869,7 +821,6 @@ async function loadAllFestsForDropdowns() {
 /* ================= LOAD FESTS ================= */
 async function loadFests() {
   const fests = await (await fetch(`${API}/api/fests`)).json();
-<<<<<<< HEAD
 
   festList.innerHTML = "";
   
@@ -881,11 +832,6 @@ async function loadFests() {
   fests.forEach(f => {
 
     // 🔥 hide others only in right side
-=======
-  festList.innerHTML = "";
-
-  fests.forEach(f => {
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
     if (selectedFestId && f.id !== Number(selectedFestId)) return;
 
     festList.innerHTML += `
@@ -898,7 +844,6 @@ async function loadFests() {
   });
 }
 
-<<<<<<< HEAD
 
  fests.forEach(f => {
 
@@ -921,13 +866,6 @@ loadFests();               // 🔥 Right side Available Fests
 
 /* ================= FEST CRUD ================= */
 festForm.addEventListener("submit", async e => {
-=======
-loadAllFestsForDropdowns();
-loadFests();
-
-/* ================= FEST CRUD ================= */
-festForm.onsubmit = async e => {
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   e.preventDefault();
 
   await fetch(`${API}/api/fests`, {
@@ -937,7 +875,6 @@ festForm.onsubmit = async e => {
   });
 
   festForm.reset();
-<<<<<<< HEAD
   loadAllFestsForDropdowns(); // 🔥 refresh dropdowns
   loadFests();                // 🔥 refresh right side
 });
@@ -946,27 +883,14 @@ festForm.onsubmit = async e => {
 function editFest(id, name, dept) {
   selectedFestId = id;
 
-=======
-  loadAllFestsForDropdowns();
-  loadFests();
-};
-
-function editFest(id, name, dept) {
-  selectedFestId = id;
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   festForm.fest_name.value = name;
   festForm.department.value = dept;
 
   addFestBtn.classList.add("hidden");
   updateFestBtn.classList.remove("hidden");
 
-<<<<<<< HEAD
   loadEvents(id);   // events fetch
   loadFests();      // 🔥 RIGHT SIDE lo migilina fests hide
-=======
-  loadEvents(id);
-  loadFests();
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 }
 
 updateFestBtn.onclick = async () => {
@@ -977,28 +901,18 @@ updateFestBtn.onclick = async () => {
   });
 
   festForm.reset();
-<<<<<<< HEAD
   selectedFestId = null;   // 🔥 SHOW ALL FESTS AGAIN
 
-=======
-  selectedFestId = null;
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   addFestBtn.classList.remove("hidden");
   updateFestBtn.classList.add("hidden");
   loadFests();
 };
 
-<<<<<<< HEAD
 
 async function deleteFestById(id) {
   if (!confirm("Delete this fest and all its events?")) return;
   await fetch(`${API}/api/fests/${id}`, { method: "DELETE" });
 
-=======
-async function deleteFestById(id) {
-  if (!confirm("Delete this fest and all its events?")) return;
-  await fetch(`${API}/api/fests/${id}`, { method: "DELETE" });
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   selectedFestId = null;
   loadFests();
 }
@@ -1008,14 +922,11 @@ async function loadEvents(festId) {
   const events = await (await fetch(`${API}/api/events/${festId}`)).json();
   eventList.innerHTML = "<h3>📅 Events</h3>";
 
-<<<<<<< HEAD
   galleryEvent.innerHTML =
   clipsEvent.innerHTML =
   deleteEvent.innerHTML =
   deleteClipsEvent.innerHTML = `<option value="">Select Event</option>`;
 
-=======
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   events.forEach(e => {
     eventList.innerHTML += `
       <div class="admin-card">
@@ -1023,7 +934,6 @@ async function loadEvents(festId) {
         <button onclick="editEvent(${e.id})">Edit</button>
         <button class="danger" onclick="deleteEventById(${e.id})">Delete</button>
       </div>`;
-<<<<<<< HEAD
 
     const opt = `<option value="${e.id}">${e.event_name}</option>`;
     galleryEvent.innerHTML += opt;
@@ -1046,18 +956,6 @@ eventForm.addEventListener("submit", async e => {
 
   const data = Object.fromEntries(new FormData(eventForm));
   data.fest_id = festId;   // ✅ correct fest id
-=======
-  });
-}
-
-eventForm.onsubmit = async e => {
-  e.preventDefault();
-  const festId = festSelect.value;
-  if (!festId) return alert("Select Fest");
-
-  const data = Object.fromEntries(new FormData(eventForm));
-  data.fest_id = festId;
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 
   await fetch(`${API}/api/events`, {
     method: "POST",
@@ -1066,7 +964,6 @@ eventForm.onsubmit = async e => {
   });
 
   eventForm.reset();
-<<<<<<< HEAD
   festSelect.value = festId;   // optional – keep selected fest
   loadEvents(festId);          // reload events
 });
@@ -1085,26 +982,12 @@ async function editEvent(eventId) {
       eventForm[k].value = ev[k] ?? "";
     }
   });
-=======
-  loadEvents(festId);
-};
-
-async function editEvent(id) {
-  const events = await (await fetch(`${API}/api/events/${selectedFestId}`)).json();
-  const ev = events.find(e => e.id == id);
-
-  eventIdInput.value = ev.id;
-  Object.keys(ev).forEach(k => eventForm[k] && (eventForm[k].value = ev[k] ?? ""));
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 
   addEventBtn.classList.add("hidden");
   updateEventBtn.classList.remove("hidden");
 }
 
-<<<<<<< HEAD
 /* ================= UPDATE EVENT ================= */
-=======
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 updateEventBtn.onclick = async () => {
   await fetch(`${API}/api/events/${eventIdInput.value}`, {
     method: "PUT",
@@ -1113,10 +996,7 @@ updateEventBtn.onclick = async () => {
   });
 
   eventForm.reset();
-<<<<<<< HEAD
   eventIdInput.value = "";
-=======
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   addEventBtn.classList.remove("hidden");
   updateEventBtn.classList.add("hidden");
   loadEvents(selectedFestId);
@@ -1128,7 +1008,6 @@ async function deleteEventById(id) {
   loadEvents(selectedFestId);
 }
 
-<<<<<<< HEAD
 /* ================= GALLERY UPLOAD ================= */
 galleryForm.addEventListener("submit", async e => {
   e.preventDefault();
@@ -1157,28 +1036,11 @@ async function openDeleteGallery() {
 
 deleteFest.onchange = e => loadEvents(e.target.value);
 
-=======
-/* ================= GALLERY ================= */
-galleryForm.onsubmit = async e => {
-  e.preventDefault();
-  await fetch(`${API}/api/upload-gallery`, { method: "POST", body: new FormData(galleryForm) });
-  alert("Gallery uploaded");
-  galleryForm.reset();
-};
-
-function openDeleteGallery() {
-  deleteGalleryPopup.classList.add("active");
-}
-
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 deleteEvent.onchange = async e => {
   selectedImages = [];
   const imgs = await (await fetch(`${API}/api/gallery/${e.target.value}`)).json();
   deleteImageGrid.innerHTML = "";
-<<<<<<< HEAD
 
-=======
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   imgs.forEach(i => {
     deleteImageGrid.innerHTML += `
       <label>
@@ -1199,7 +1061,6 @@ async function deleteSelectedImages() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ images: selectedImages })
   });
-<<<<<<< HEAD
   alert("Images deleted 🗑️");
   deleteGalleryPopup.classList.remove("active");
 }
@@ -1226,41 +1087,17 @@ clipsForm.addEventListener("submit", async e => {
 
 
 /* ================= DELETE CLIPS ================= */
-=======
-  alert("Images deleted");
-  deleteGalleryPopup.classList.remove("active");
-}
-
-function closeDeleteGallery() {
-  deleteGalleryPopup.classList.remove("active");
-}
-
-/* ================= CLIPS ================= */
-clipsForm.onsubmit = async e => {
-  e.preventDefault();
-  await fetch(`${API}/api/upload-clips`, { method: "POST", body: new FormData(clipsForm) });
-  alert("Clips uploaded");
-  clipsForm.reset();
-};
-
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 function openDeleteClips() {
   deleteClipsPopup.classList.add("active");
 }
 
-<<<<<<< HEAD
 deleteClipsFest.onchange = e => loadEvents(e.target.value);
 
-=======
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 deleteClipsEvent.onchange = async e => {
   selectedClipIds = [];
   const vids = await (await fetch(`${API}/api/clips/${e.target.value}`)).json();
   deleteClipsGrid.innerHTML = "";
-<<<<<<< HEAD
 
-=======
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   vids.forEach(v => {
     deleteClipsGrid.innerHTML += `
       <label>
@@ -1281,7 +1118,6 @@ async function deleteSelectedClips() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ids: selectedClipIds })
   });
-<<<<<<< HEAD
   alert("Clips deleted 🗑️");
   deleteClipsPopup.classList.remove("active");
 }
@@ -1291,25 +1127,10 @@ const clubForm = document.getElementById("clubForm");
 const clubList = document.getElementById("clubList");
 const coordinatorContainer = document.getElementById("coordinatorContainer");
 
-=======
-  alert("Clips deleted");
-  deleteClipsPopup.classList.remove("active");
-}
-
-function closeDeleteClips() {
-  deleteClipsPopup.classList.remove("active");
-}
-
-/* ================= CLUBS ================= */
-const clubForm = document.getElementById("clubForm");
-const clubList = document.getElementById("clubList");
-const coordinatorContainer = document.getElementById("coordinatorContainer");
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 const addClubBtn = document.getElementById("addClubBtn");
 const updateClubBtn = document.getElementById("updateClubBtn");
 const clubIdInput = document.getElementById("clubId");
 
-<<<<<<< HEAD
 /* ➕ ADD COORDINATOR ROW */
 function addCoordinator(data = {}) {
   const div = document.createElement("div");
@@ -1332,40 +1153,19 @@ async function loadClubs() {
   const clubs = await (await fetch(`${API}/api/clubs`)).json();
   clubList.innerHTML = "";
 
-=======
-function addCoordinator(data = {}) {
-  const div = document.createElement("div");
-  div.innerHTML = `
-    <input value="${data.name || ""}" placeholder="Name">
-    <input value="${data.mobile || ""}" placeholder="Mobile">
-    <input value="${data.branch || ""}" placeholder="Branch">
-    <button type="button" onclick="this.parentElement.remove()">✖</button>`;
-  coordinatorContainer.appendChild(div);
-}
-
-async function loadClubs() {
-  const clubs = await (await fetch(`${API}/api/clubs`)).json();
-  clubList.innerHTML = "";
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   clubs.forEach(c => {
     clubList.innerHTML += `
       <div class="admin-card">
         <b>${c.club_name}</b>
         <small>${c.department}</small><br>
         <button onclick="editClub(${c.id})">Edit</button>
-<<<<<<< HEAD
         <button class="danger" onclick="deleteClub(${c.id})">Delete</button>
       </div>
     `;
-=======
-        <button onclick="deleteClub(${c.id})">Delete</button>
-      </div>`;
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   });
 }
 loadClubs();
 
-<<<<<<< HEAD
 /* ➕ CREATE CLUB */
 clubForm.addEventListener("submit", async e => {
   e.preventDefault();
@@ -1374,14 +1174,6 @@ clubForm.addEventListener("submit", async e => {
     name: row.children[0].value,
     mobile: row.children[1].value,
     branch: row.children[2].value
-=======
-clubForm.onsubmit = async e => {
-  e.preventDefault();
-  const coordinators = [...coordinatorContainer.children].map(r => ({
-    name: r.children[0].value,
-    mobile: r.children[1].value,
-    branch: r.children[2].value
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   }));
 
   const data = Object.fromEntries(new FormData(clubForm));
@@ -1396,19 +1188,12 @@ clubForm.onsubmit = async e => {
   clubForm.reset();
   coordinatorContainer.innerHTML = "";
   loadClubs();
-<<<<<<< HEAD
 });
 
 /* ✏️ EDIT CLUB */
 async function editClub(id) {
   const club = await (await fetch(`${API}/api/clubs/${id}`)).json();
 
-=======
-};
-
-async function editClub(id) {
-  const club = await (await fetch(`${API}/api/clubs/${id}`)).json();
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   clubIdInput.value = club.id;
   clubForm.club_name.value = club.club_name;
   clubForm.department.value = club.department;
@@ -1417,30 +1202,18 @@ async function editClub(id) {
   clubForm.whatsapp_link.value = club.whatsapp_link;
 
   coordinatorContainer.innerHTML = "";
-<<<<<<< HEAD
   club.coordinators.forEach(c => addCoordinator(c));
-=======
-  club.coordinators.forEach(addCoordinator);
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 
   addClubBtn.classList.add("hidden");
   updateClubBtn.classList.remove("hidden");
 }
 
-<<<<<<< HEAD
 /* 🔄 UPDATE CLUB */
 updateClubBtn.onclick = async () => {
   const coordinators = [...coordinatorContainer.children].map(row => ({
     name: row.children[0].value,
     mobile: row.children[1].value,
     branch: row.children[2].value
-=======
-updateClubBtn.onclick = async () => {
-  const coordinators = [...coordinatorContainer.children].map(r => ({
-    name: r.children[0].value,
-    mobile: r.children[1].value,
-    branch: r.children[2].value
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   }));
 
   const data = Object.fromEntries(new FormData(clubForm));
@@ -1455,7 +1228,6 @@ updateClubBtn.onclick = async () => {
   clubForm.reset();
   coordinatorContainer.innerHTML = "";
   clubIdInput.value = "";
-<<<<<<< HEAD
 
   addClubBtn.classList.remove("hidden");
   updateClubBtn.classList.add("hidden");
@@ -1469,25 +1241,9 @@ async function deleteClub(id) {
 
   await fetch(`${API}/api/clubs/${id}`, { method: "DELETE" });
   alert("Club deleted 🗑️");
-=======
-  addClubBtn.classList.remove("hidden");
-  updateClubBtn.classList.add("hidden");
-  loadClubs();
-};
-
-async function deleteClub(id) {
-  if (!confirm("Delete this club?")) return;
-  await fetch(`${API}/api/clubs/${id}`, { method: "DELETE" });
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
   loadClubs();
 }
 </script>
 
-<<<<<<< HEAD
 </body>
 </html>
-=======
-
-</body>
-</html>
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d

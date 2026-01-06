@@ -41,7 +41,6 @@ const clipStorage = new CloudinaryStorage({
 const uploadClips = multer({ storage: clipStorage });
 
 // ====================== DB CONNECTION ======================
-<<<<<<< HEAD
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -55,41 +54,11 @@ db.connect(err => {
     return;
   }
   console.log("✅ DB Connected");
-=======
-const db = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: process.env.DB_CONNECTION_LIMIT,
-  queueLimit: 0
-});
-
-// Optional check
-db.getConnection((err, connection) => {
-  if (err) {
-    console.error("❌ DB Pool Connection Failed:", err);
-  } else {
-    console.log("✅ DB Pool Connected");
-    connection.release();
-  }
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 });
 
 // ======================================================
 // ====================== FEST APIs ======================
 // ======================================================
-<<<<<<< HEAD
-=======
-app.get("/health", (req, res) => {
-  res.json({
-    status: "OK",
-    uptime: process.uptime(),
-    time: new Date()
-  });
-});
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 
 // ➕ ADD FEST
 app.post("/api/fests", (req, res) => {
@@ -395,11 +364,7 @@ app.post("/api/delete-clips", async (req, res) => {
 // ====================== CLUB APIs ======================
 // ======================================================
 
-<<<<<<< HEAD
 // ➕ CREATE CLUB
-=======
-// ➕ pool CLUB
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 app.post("/api/clubs", async (req, res) => {
   const {
     club_name,
@@ -442,11 +407,7 @@ app.post("/api/clubs", async (req, res) => {
       );
     }
 
-<<<<<<< HEAD
     res.json({ message: "Club created successfully ✅" });
-=======
-    res.json({ message: "Club poold successfully ✅" });
->>>>>>> 0ec76a6d96aae7c97d0649d5d63601571b81aa3d
 
   } catch (err) {
     console.error(err);

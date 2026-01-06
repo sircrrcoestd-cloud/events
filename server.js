@@ -41,19 +41,24 @@ const clipStorage = new CloudinaryStorage({
 const uploadClips = multer({ storage: clipStorage });
 
 // ====================== DB CONNECTION ======================
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "tarun123",
-  database: "college_fest"
+const db = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: process.env.DB_CONNECTION_LIMIT,
+  queueLimit: 0
 });
 
-db.connect(err => {
+// Optional check
+db.getConnection((err, connection) => {
   if (err) {
-    console.error("❌ DB Connection Failed:", err);
-    return;
+    console.error("❌ DB Pool Connection Failed:", err);
+  } else {
+    console.log("✅ DB Pool Connected");
+    connection.release();
   }
-  console.log("✅ DB Connected");
 });
 
 // ======================================================

@@ -149,97 +149,7 @@
     }
 
     /* Header Styles */
-    header {
-      background: linear-gradient(135deg, rgba(15, 52, 96, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
-      backdrop-filter: blur(10px);
-      border-bottom: 2px solid var(--accent-gold);
-      padding: 30px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .header-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      margin-bottom: 25px;
-    }
-
-    .logo-section img {
-      width: 70px;
-      height: 70px;
-      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
-      animation: logoFloat 3s ease-in-out infinite;
-    }
-
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-
-    .college-info h1 {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--accent-gold);
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-    }
-
-    .college-info p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      letter-spacing: 2px;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    nav {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      border-top: 1px solid rgba(212, 175, 55, 0.3);
-      padding-top: 20px;
-    }
-
-    nav a {
-      color: var(--text-primary);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      position: relative;
-      transition: var(--transition);
-      text-transform: uppercase;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange));
-      transition: var(--transition);
-    }
-
-    nav a:hover {
-      color: var(--accent-gold);
-      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
+   
 
     /* Main Content */
     main {
@@ -882,23 +792,15 @@
   </div>
 
   <header>
-    <div class="header-container">
-      <div class="logo-section">
-        <img src="crrengglogo.png" alt="CRR College Logo">
-        <div class="college-info">
-          <h1>SIR C.R. REDDY COLLEGE OF ENGINEERING</h1>
-          <p>Department of Computer Science and Engineering</p>
-        </div>
-      </div>
+    <div id="header-placeholder"></div>
+    <script>
+fetch("header.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("header-placeholder").innerHTML = data;
+  });
+</script>
 
-      <nav role="navigation" aria-label="Main Navigation">
-        <a href="home.html" aria-label="Home">Home</a>
-        <a href="index.html" aria-label="Events and Fests">Fests</a>
-        <a href="clubs.html" aria-label="Student Clubs">Clubs</a>
-        <a href="gallery.html" aria-label="Photo Gallery">Gallery</a>
-        <a href="clips.html" aria-label="Video Clips">Clips</a>
-      </nav>
-    </div>
   </header>
 
   <main role="main" aria-label="Fest Events Content">

@@ -1,37 +1,41 @@
-<!-- ===== GLOBAL HEADER COMPONENT ===== -->
-
 <style>
-/* ===== HEADER STYLING (FROM HOME PAGE — UNCHANGED) ===== */
-
+/* ===== HEADER WRAPPER ===== */
 #mainHeader {
-  background: linear-gradient(135deg, rgba(15, 52, 96, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid #d4af37;
-  padding: 30px 0;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  transition: transform 0.4s ease;
+  transition: all 0.4s ease;
 }
 
-/* Scroll hide */
-#mainHeader.hide {
+/* ===== TOP LOGO AREA ===== */
+.header-top {
+  background: linear-gradient(135deg, rgba(15,52,96,0.95), rgba(26,26,46,0.95));
+  border-bottom: 2px solid #d4af37;
+  padding: 25px 0;
+  transition: all 0.4s ease;
+}
+
+/* Hide only top part */
+#mainHeader.compact .header-top {
   transform: translateY(-100%);
+  opacity: 0;
+}
+
+/* ===== NAV BAR ===== */
+.header-nav {
+  background: rgba(15,52,96,0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #d4af37;
 }
 
 .header-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 30px;
 }
 
+/* Logo row */
 .logo-section {
   display: flex;
   align-items: center;
@@ -41,143 +45,100 @@
 .logo-section img {
   width: 70px;
   height: 70px;
-  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
-  animation: logoFloat 3s ease-in-out infinite;
 }
 
-@keyframes logoFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
+/* Text */
 .college-info h1 {
-  font-size: 32px;
-  font-weight: 800;
+  font-size: 30px;
   color: #d4af37;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  margin-bottom: 8px;
-  letter-spacing: 1px;
 }
 
 .college-info p {
-  font-size: 14px;
+  font-size: 13px;
   color: #b0b0b0;
-  letter-spacing: 2px;
-  font-weight: 600;
-  text-transform: uppercase;
 }
 
+/* NAV LINKS */
 nav {
   display: flex;
   gap: 30px;
-  flex-wrap: wrap;
+  padding: 12px 0;
+  justify-content: center;
 }
 
 nav a {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
-  font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0.5px;
   position: relative;
-  transition: 0.3s;
-  text-transform: uppercase;
 }
 
 nav a::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: -5px;
+  bottom: -4px;
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #d4af37, #ff6b35);
+  background: linear-gradient(90deg,#d4af37,#ff6b35);
   transition: 0.3s;
-}
-
-nav a:hover {
-  color: #d4af37;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
 nav a:hover::after {
   width: 100%;
 }
 
-/* Space so page content not hidden behind fixed header */
+/* Body spacing */
 body {
-  padding-top: 140px;
-}
-
-/* ===== MOBILE RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .header-container {
-    padding: 0 20px;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .logo-section {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-    width: 100%;
-  }
-
-  .college-info h1 {
-    font-size: 24px;
-  }
-
-  nav {
-    gap: 15px;
-    justify-content: center;
-    width: 100%;
-  }
-
-  nav a {
-    font-size: 12px;
-  }
+  padding-top: 160px;
 }
 </style>
 
 
 <header id="mainHeader">
-  <div class="header-container">
-    <div class="logo-section">
-      <img src="crrengglogo.png" alt="CRR College Logo">
-      <div class="college-info">
-        <h1>SIR C.R. REDDY COLLEGE OF ENGINEERING</h1>
-        <p>Department of Computer Science and Engineering</p>
+
+  <!-- ===== TOP LOGO AREA ===== -->
+  <div class="header-top">
+    <div class="header-container">
+      <div class="logo-section">
+        <img src="crrengglogo.png">
+        <div class="college-info">
+          <h1>SIR C.R. REDDY COLLEGE OF ENGINEERING</h1>
+          <p>Department of Computer Science and Engineering</p>
+        </div>
       </div>
     </div>
-
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="index.html">Fests</a>
-      <a href="clubs.html">Clubs</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="clips.html">Clips</a>
-    </nav>
   </div>
+
+  <!-- ===== NAV BAR (ALWAYS VISIBLE) ===== -->
+  <div class="header-nav">
+    <div class="header-container">
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="index.html">Fests</a>
+        <a href="clubs.html">Clubs</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="clips.html">Clips</a>
+      </nav>
+    </div>
+  </div>
+
 </header>
 
 
 <script>
-/* ===== SCROLL HIDE / SHOW ===== */
 let lastScroll = 0;
 const header = document.getElementById("mainHeader");
 
 window.addEventListener("scroll", () => {
   const current = window.pageYOffset;
 
-  if (current > lastScroll && current > 100) {
-    header.classList.add("hide");
+  if (current > 80) {
+    header.classList.add("compact"); // hide top only
   } else {
-    header.classList.remove("hide");
+    header.classList.remove("compact");
   }
 
   lastScroll = current;
 });
 </script>
-
-<!-- ===== END HEADER ===== -->
